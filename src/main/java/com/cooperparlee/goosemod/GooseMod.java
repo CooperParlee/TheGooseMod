@@ -44,6 +44,4 @@ public class GooseMod {
 	public static Logger getLog(){
 		return LOGGER;
 	}
-
-
 }
