@@ -1,0 +1,62 @@
+{
+  "entity.goose.ambient": {
+      "category": "entity",
+      "subtitle": "entity.goose.ambient",
+      "sounds": [
+        {
+          "name": "thegoosemod:entity/entity.goose.ambient",
+          "stream": false
+        },
+        {
+          "name": "thegoosemod:entity/entity.goose.ambient1",
+          "stream": false
+        },
+        {
+          "name": "thegoosemod:entity/entity.goose.ambient2",
+          "stream": false
+        },
+        {
+          "name": "thegoosemod:entity/entity.goose.ambient3",
+          "stream": false
+        }
+      ]
+  },
+  "entity.goose.hurt": {
+    "category": "entity",
+    "subtitle": "entity.goose.hurt",
+    "sounds": [
+      {
+        "name": "thegoosemod:entity/entity.goose.hurt",
+        "stream": false
+      }
+    ]
+  },
+  "entity.goose.death": {
+    "category": "entity",
+    "subtitle": "entity.goose.death",
+    "sounds": [
+      {
+        "name": "thegoosemod:entity/entity.goose.death",
+        "stream": false
+      }
+    ]
+  },
+  "entity.goose.step": {
+    "category": "entity",
+    "subtitle": "entity.goose.step",
+    "sounds": [
+      {
+        "name": "thegoosemod:entity/entity.goose.step",
+        "stream": false
+      },
+      {
+        "name": "thegoosemod:entity/entity.goose.step1",
+        "stream": false
+      },
+      {
+        "name": "thegoosemod:entity/entity.goose.step2",
+        "stream": false
+      }
+    ]
+  }
+}
