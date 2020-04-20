@@ -5,13 +5,17 @@ import com.cooperparlee.goosemod.util.ModItems;
 import com.cooperparlee.goosemod.util.ModSounds;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
+import net.minecraft.entity.ai.controller.FlyingMovementController;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.passive.AnimalEntity;
+import net.minecraft.entity.passive.IFlyingAnimal;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.pathfinding.FlyingPathNavigator;
+import net.minecraft.pathfinding.PathNavigator;
 import net.minecraft.pathfinding.PathNodeType;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
@@ -21,7 +25,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
-public class EntityGoose extends AnimalEntity {
+public class EntityGoose extends AnimalEntity implements IFlyingAnimal {
     private static final Ingredient TEMPTATION_ITEMS = Ingredient.fromItems(Items.WHEAT_SEEDS, Items.MELON_SEEDS, Items.PUMPKIN_SEEDS, Items.BEETROOT_SEEDS, Items.SWEET_BERRIES);
     public float wingRotation;
     public float destPos;
@@ -33,7 +37,9 @@ public class EntityGoose extends AnimalEntity {
 
     public EntityGoose(EntityType<? extends AnimalEntity> type, World worldIn){
         super(type, worldIn);
+        this.moveController = new FlyingMovementController(this, 10, false);
         this.setPathPriority(PathNodeType.WATER, 0.0F);
+
     }
 
     @Override
@@ -43,11 +49,12 @@ public class EntityGoose extends AnimalEntity {
         this.goalSelector.addGoal(1, new PanicGoal(this, 1.3F));
         this.goalSelector.addGoal(2, new BreedGoal(this, 1.0D));
         this.goalSelector.addGoal(3, new TemptGoal(this, 1.2D, false, TEMPTATION_ITEMS));
-        this.goalSelector.addGoal(4, new FollowParentGoal(this, 1.2D));
-        this.goalSelector.addGoal(5, this.eatGrassGoal);
-        this.goalSelector.addGoal(6, new WaterAvoidingRandomWalkingGoal(this, 1.0D));
-        this.goalSelector.addGoal(7, new LookAtGoal(this, PlayerEntity.class, 6.0F));
-        this.goalSelector.addGoal(8, new LookRandomlyGoal(this));
+        this.goalSelector.addGoal(4, new WaterAvoidingRandomFlyingGoal(this, 1.0d));
+        //this.goalSelector.addGoal(5, new FollowParentGoal(this, 1.2D));
+        //this.goalSelector.addGoal(6, this.eatGrassGoal);
+        //this.goalSelector.addGoal(7, new WaterAvoidingRandomWalkingGoal(this, 1.0D));
+        //this.goalSelector.addGoal(8, new LookAtGoal(this, PlayerEntity.class, 6.0F));
+        //this.goalSelector.addGoal(9, new LookRandomlyGoal(this));
     }
 
     @Override
@@ -94,6 +101,14 @@ public class EntityGoose extends AnimalEntity {
 
     protected void playStepSound(BlockPos pos, BlockState blockIn) {
         this.playSound(ModSounds.ENTITY_GOOSE_STEP.get(), 1.0F, 1.0F);
+    }
+
+    protected PathNavigator createNavigator(World worldIn) {
+        FlyingPathNavigator flyingpathnavigator = new FlyingPathNavigator(this, worldIn);
+        flyingpathnavigator.setCanOpenDoors(false);
+        flyingpathnavigator.setCanSwim(true);
+        flyingpathnavigator.setCanEnterDoors(true);
+        return flyingpathnavigator;
     }
 
     @Override

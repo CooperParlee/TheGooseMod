@@ -11,6 +11,8 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.Biomes;
 import net.minecraft.world.gen.Heightmap;
+import net.minecraftforge.event.world.WorldEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
@@ -37,4 +39,9 @@ public class ModEntities {
         return EntityType.Builder.create(EntityGoose::new, EntityClassification.CREATURE).size(0.9f, 1.1f);
     }
 
+    /*@SubscribeEvent(receiveCanceled = true)
+    public static void PotentialSpawns(WorldEvent.PotentialSpawns event){
+        //WorldEvent.CreateSpawnPosition(event.getWorld(), );
+        WorldEvent.PotentialSpawns.
+    }*/
 }

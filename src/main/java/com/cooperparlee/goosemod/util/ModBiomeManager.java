@@ -5,6 +5,7 @@ import net.minecraft.entity.EntitySpawnPlacementRegistry;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.world.biome.Biome;
+import net.minecraft.world.biome.TaigaBiome;
 import net.minecraft.world.gen.Heightmap;
 import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -17,8 +18,8 @@ public class ModBiomeManager {
     public static void registerEntityWorldSpawn(EntityType<?> entity, int weight, int groupMin, int groupMax,  Biome... biomes) {
         for (Biome biome : biomes) {
             if (biome != null) {
-                biome.getSpawns(entity.getClassification()).add(new Biome.SpawnListEntry(entity, weight, groupMin, groupMax));
-
+                //biome.getSpawns(entity.getClassification()).add(new Biome.SpawnListEntry(entity, weight, groupMin, groupMax));
+                //TaigaBiome.addSpawn();
             }
         }
     }
