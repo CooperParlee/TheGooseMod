@@ -1,5 +1,7 @@
 package com.cooperparlee.goosemod.entity;
 
+import com.cooperparlee.goosemod.entity.ai.HybridMovementController;
+import com.cooperparlee.goosemod.entity.ai.goals.HybridizedMovementGoal;
 import com.cooperparlee.goosemod.util.ModEntities;
 import com.cooperparlee.goosemod.util.ModItems;
 import com.cooperparlee.goosemod.util.ModSounds;
@@ -28,11 +30,12 @@ public class EntityGoose extends AnimalEntity {
     public float oFlapSpeed;
     public float oFlap;
     public float wingRotDelta = 1.0F;
-    public int timeUntilNextEgg = this.rand.nextInt(500) + 500;
+    public int timeUntilNextEgg = this.rand.nextInt(6000) + 6000;
     private EatGrassGoal eatGrassGoal;
 
     public EntityGoose(EntityType<? extends AnimalEntity> type, World worldIn){
         super(type, worldIn);
+        this.moveController = new HybridMovementController(this, 10, false);
         this.setPathPriority(PathNodeType.WATER, 0.0F);
     }
 
@@ -45,7 +48,7 @@ public class EntityGoose extends AnimalEntity {
         this.goalSelector.addGoal(3, new TemptGoal(this, 1.2D, false, TEMPTATION_ITEMS));
         this.goalSelector.addGoal(4, new FollowParentGoal(this, 1.2D));
         this.goalSelector.addGoal(5, this.eatGrassGoal);
-        this.goalSelector.addGoal(6, new WaterAvoidingRandomWalkingGoal(this, 1.0D));
+        this.goalSelector.addGoal(6, new HybridizedMovementGoal(this, 1.0D));
         this.goalSelector.addGoal(7, new LookAtGoal(this, PlayerEntity.class, 6.0F));
         this.goalSelector.addGoal(8, new LookRandomlyGoal(this));
     }
