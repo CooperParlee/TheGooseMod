@@ -1,5 +1,6 @@
 package com.cooperparlee.goosemod.entity.ai.goals;
 
+import com.cooperparlee.goosemod.GooseMod;
 import net.minecraft.entity.CreatureEntity;
 import net.minecraft.entity.ai.RandomPositionGenerator;
 import net.minecraft.entity.ai.goal.Goal;
@@ -21,7 +22,7 @@ public class HybridizedMovementGoal extends Goal {
     protected HybridizedMovementTypes movementType = HybridizedMovementTypes.NULL;
 
     public enum HybridizedMovementTypes{
-        NULL, WALK, FLY
+        NULL, WALK, FLY, WAIT
     }
 
     public HybridizedMovementGoal(CreatureEntity creatureIn, double speedIn) {
@@ -32,7 +33,7 @@ public class HybridizedMovementGoal extends Goal {
         this.creature = creatureIn;
         this.speed = speedIn;
         this.executionChanceWalk = chanceWalk;
-        this.executionChanceWalk = chanceFly;
+        this.executionChanceFly = chanceFly;
         this.setMutexFlags(EnumSet.of(Goal.Flag.MOVE));
     }
 
@@ -46,9 +47,11 @@ public class HybridizedMovementGoal extends Goal {
                 }
 
                 if (checkFly()) {
+                    GooseMod.getLog().debug("Should fly");
                     return true;
                 }
                 if (checkWalk()) {
+                    GooseMod.getLog().debug("Should walk");
                     return true;
                 }
             }
