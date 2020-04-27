@@ -1,0 +1,9 @@
+{
+  "type": "smelting",
+  "ingredient": {
+    "item": "thegoosemod:goose_uncooked"
+  },
+  "result": "thegoosemod:goose_cooked",
+  "experience": 1,
+  "cookingTime": 200
+}

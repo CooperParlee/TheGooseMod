@@ -1,0 +1,9 @@
+{
+  "type": "smoking",
+  "ingredient": {
+    "item": "thegoosemod:goose_nugget_uncooked"
+  },
+  "result": "thegoosemod:goose_nugget_cooked",
+  "experience": 0.75,
+  "cookingTime": 200
+}

@@ -93,7 +93,7 @@ public class EntityGoose extends AnimalEntity {
     }
 
     protected void playStepSound(BlockPos pos, BlockState blockIn) {
-        this.playSound(ModSounds.ENTITY_GOOSE_STEP.get(), 1.0F, 1.0F);
+        this.playSound(ModSounds.ENTITY_GOOSE_STEP.get(), 0.5F, 1.0F);
     }
 
     @Override
