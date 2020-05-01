@@ -6,7 +6,13 @@ import com.cooperparlee.goosemod.util.ModSounds;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
+import net.minecraft.entity.monster.SkeletonEntity;
+import net.minecraft.entity.monster.SpiderEntity;
 import net.minecraft.entity.passive.AnimalEntity;
+import net.minecraft.entity.passive.ChickenEntity;
+import net.minecraft.entity.passive.CowEntity;
+import net.minecraft.entity.passive.RabbitEntity;
+import net.minecraft.entity.passive.horse.HorseEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -29,7 +35,6 @@ public class EntityGoose extends AnimalEntity {
     public float oFlap;
     public float wingRotDelta = 1.0F;
     public int timeUntilNextEgg = this.rand.nextInt(500) + 500;
-    private EatGrassGoal eatGrassGoal;
 
     public EntityGoose(EntityType<? extends AnimalEntity> type, World worldIn){
         super(type, worldIn);
@@ -38,13 +43,14 @@ public class EntityGoose extends AnimalEntity {
 
     @Override
     protected void registerGoals() {
-        this.eatGrassGoal = new EatGrassGoal(this);
         this.goalSelector.addGoal(0, new SwimGoal(this));
         this.goalSelector.addGoal(1, new PanicGoal(this, 1.3F));
         this.goalSelector.addGoal(2, new BreedGoal(this, 1.0D));
         this.goalSelector.addGoal(3, new TemptGoal(this, 1.2D, false, TEMPTATION_ITEMS));
-        this.goalSelector.addGoal(4, new FollowParentGoal(this, 1.2D));
-        this.goalSelector.addGoal(5, this.eatGrassGoal);
+        this.goalSelector.addGoal(4, new AvoidEntityGoal(this, PlayerEntity.class, 8.0F, 2.2D, 2.2D));
+        this.goalSelector.addGoal(4, new AvoidEntityGoal(this, HorseEntity.class, 8.0F, 2.2D, 2.2D));
+        this.goalSelector.addGoal(4, new AvoidEntityGoal(this, CowEntity.class, 8.0F, 2.2D, 2.2D));
+        this.goalSelector.addGoal(5, new FollowParentGoal(this, 1.2D));
         this.goalSelector.addGoal(6, new WaterAvoidingRandomWalkingGoal(this, 1.0D));
         this.goalSelector.addGoal(7, new LookAtGoal(this, PlayerEntity.class, 6.0F));
         this.goalSelector.addGoal(8, new LookRandomlyGoal(this));
@@ -93,7 +99,7 @@ public class EntityGoose extends AnimalEntity {
     }
 
     protected void playStepSound(BlockPos pos, BlockState blockIn) {
-        this.playSound(ModSounds.ENTITY_GOOSE_STEP.get(), 0.5F, 1.0F);
+        this.playSound(ModSounds.ENTITY_GOOSE_STEP.get(), 0.35F, 1.0F);
     }
 
     @Override
@@ -122,6 +128,4 @@ public class EntityGoose extends AnimalEntity {
         }
 
     }
-
-
 }
