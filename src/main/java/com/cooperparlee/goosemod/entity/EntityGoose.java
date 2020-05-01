@@ -14,12 +14,16 @@ import net.minecraft.entity.passive.CowEntity;
 import net.minecraft.entity.passive.RabbitEntity;
 import net.minecraft.entity.passive.horse.HorseEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.item.SpawnEggItem;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.particles.ParticleTypes;
 import net.minecraft.pathfinding.PathNodeType;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.Hand;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
@@ -126,6 +130,30 @@ public class EntityGoose extends AnimalEntity {
             this.entityDropItem(ModItems.GOOSE_EGG.get());
             this.timeUntilNextEgg = this.rand.nextInt(6000) + 6000;
         }
+    }
 
+    public boolean processInteract(PlayerEntity player, Hand hand){
+        ItemStack itemstack = player.getHeldItem(hand);
+        Item item = itemstack.getItem();
+
+        if (item == Items.APPLE) {
+            if (!player.abilities.isCreativeMode) {
+                itemstack.shrink(1);
+            }
+
+            if (this.rand.nextInt(3) == 0 && !net.minecraftforge.event.ForgeEventFactory.onAnimalTame(this, player)) {
+                EntityGooseTame entityGoose = ModEntities.GOOSE_TAMED.get().create(this.world);
+                entityGoose.setGrowingAge(this.getGrowingAge());
+                entityGoose.setOwnerId(player.getUniqueID());
+                entityGoose.setLocationAndAngles(this.getPosX(), this.getPosY(), this.getPosZ(), this.rotationYaw, 0.0F);
+                this.world.setEntityState(entityGoose, (byte)2); //Sets it to sit state
+                this.world.addEntity(entityGoose);
+                return entityGoose.Tame(this);
+            }
+
+            return true;
+        }
+
+        return super.processInteract(player, hand);
     }
 }

@@ -2,6 +2,7 @@ package com.cooperparlee.goosemod.util;
 
 import com.cooperparlee.goosemod.GooseMod;
 import com.cooperparlee.goosemod.entity.EntityGoose;
+import com.cooperparlee.goosemod.entity.EntityGooseTame;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntitySpawnPlacementRegistry;
@@ -22,7 +23,7 @@ public class ModEntities {
     public static final DeferredRegister<EntityType<?>> ENTITIES = new DeferredRegister<>(ForgeRegistries.ENTITIES, GooseMod.MOD_ID);
 
     public static final RegistryObject<EntityType<EntityGoose>> GOOSE = register("goose", ModEntities::goose);
-
+    public static final RegistryObject<EntityType<EntityGooseTame>> GOOSE_TAMED = register("goose_tamed", ModEntities::gooseTamed);
 
     public static void init(){
         ENTITIES.register(FMLJavaModLoadingContext.get().getModEventBus());
@@ -37,4 +38,7 @@ public class ModEntities {
         return EntityType.Builder.create(EntityGoose::new, EntityClassification.CREATURE).size(0.9f, 1.1f);
     }
 
+    public static EntityType.Builder<EntityGooseTame> gooseTamed(){
+        return EntityType.Builder.create(EntityGooseTame::new, EntityClassification.CREATURE).size(0.9f, 1.1f);
+    }
 }

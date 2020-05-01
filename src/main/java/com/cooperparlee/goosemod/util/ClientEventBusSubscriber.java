@@ -2,6 +2,7 @@ package com.cooperparlee.goosemod.util;
 
 import com.cooperparlee.goosemod.GooseMod;
 import com.cooperparlee.goosemod.entity.EntityGooseRenderer;
+import com.cooperparlee.goosemod.entity.EntityGooseTameRenderer;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
@@ -13,5 +14,6 @@ public class ClientEventBusSubscriber {
     @SubscribeEvent
     public static void clientSetup(FMLClientSetupEvent event){
         RenderingRegistry.registerEntityRenderingHandler(ModEntities.GOOSE.get(), EntityGooseRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(ModEntities.GOOSE_TAMED.get(), EntityGooseTameRenderer::new);
     }
 }
