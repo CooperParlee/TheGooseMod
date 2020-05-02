@@ -51,9 +51,9 @@ public class EntityGoose extends AnimalEntity {
         this.goalSelector.addGoal(1, new PanicGoal(this, 1.3F));
         this.goalSelector.addGoal(2, new BreedGoal(this, 1.0D));
         this.goalSelector.addGoal(3, new TemptGoal(this, 1.2D, false, TEMPTATION_ITEMS));
-        this.goalSelector.addGoal(4, new AvoidEntityGoal(this, PlayerEntity.class, 8.0F, 2.2D, 2.2D));
-        this.goalSelector.addGoal(4, new AvoidEntityGoal(this, HorseEntity.class, 8.0F, 2.2D, 2.2D));
-        this.goalSelector.addGoal(4, new AvoidEntityGoal(this, CowEntity.class, 8.0F, 2.2D, 2.2D));
+        this.goalSelector.addGoal(4, new AvoidEntityGoal(this, PlayerEntity.class, 8.0F, 1D, 1D));
+        this.goalSelector.addGoal(4, new AvoidEntityGoal(this, HorseEntity.class, 8.0F, 1D, 1D));
+        this.goalSelector.addGoal(4, new AvoidEntityGoal(this, CowEntity.class, 8.0F, 1D, 1D));
         this.goalSelector.addGoal(5, new FollowParentGoal(this, 1.2D));
         this.goalSelector.addGoal(6, new WaterAvoidingRandomWalkingGoal(this, 1.0D));
         this.goalSelector.addGoal(7, new LookAtGoal(this, PlayerEntity.class, 6.0F));

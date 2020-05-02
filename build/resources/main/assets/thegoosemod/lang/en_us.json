@@ -5,5 +5,8 @@
   "item.thegoosemod.goose_nugget_cooked": "Cooked Goose Nugget",
   "item.thegoosemod.goose_uncooked": "Raw Goose",
   "item.thegoosemod.goose_feather": "Goose Feather",
-  "item.thegoosemod.goose_cooked": "Cooked Goose"
+  "item.thegoosemod.goose_cooked": "Cooked Goose",
+
+  "entities.thegoosemod.goose": "Goose",
+  "entities.thegoosemod.goose_tamed": "Goose"
 }

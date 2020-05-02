@@ -12,10 +12,7 @@ import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.monster.AbstractSkeletonEntity;
 import net.minecraft.entity.monster.CreeperEntity;
 import net.minecraft.entity.monster.GhastEntity;
-import net.minecraft.entity.passive.AnimalEntity;
-import net.minecraft.entity.passive.TameableEntity;
-import net.minecraft.entity.passive.TurtleEntity;
-import net.minecraft.entity.passive.WolfEntity;
+import net.minecraft.entity.passive.*;
 import net.minecraft.entity.passive.horse.AbstractHorseEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -89,6 +86,8 @@ public class EntityGooseTame extends TameableEntity {
         return ModSounds.ENTITY_GOOSE_DEATH.get();
     }
 
+
+
     protected void playStepSound(BlockPos pos, BlockState blockIn) {
         this.playSound(ModSounds.ENTITY_GOOSE_STEP.get(), 0.35F, 1.0F);
     }
@@ -100,7 +99,7 @@ public class EntityGooseTame extends TameableEntity {
         this.goalSelector.addGoal(2, this.sitGoal);
         this.goalSelector.addGoal(3, new LeapAtTargetGoal(this, 0.4F));
         this.goalSelector.addGoal(4, new MeleeAttackGoal(this, 1.0D, true));
-        this.goalSelector.addGoal(5, new BreedGoal(this, 1.0D));
+        this.goalSelector.addGoal(5, new BreedGoal(this, 1.2D));
         this.goalSelector.addGoal(6, new FollowOwnerGoal(this, 1.0D, 10.0F, 2.0F, false));
         this.goalSelector.addGoal(7, new LookAtGoal(this, PlayerEntity.class, 8.0F));
         this.goalSelector.addGoal(7, new LookRandomlyGoal(this));
@@ -108,7 +107,7 @@ public class EntityGooseTame extends TameableEntity {
         this.targetSelector.addGoal(1, new OwnerHurtByTargetGoal(this));
         this.targetSelector.addGoal(2, new OwnerHurtTargetGoal(this));
         this.targetSelector.addGoal(3, (new HurtByTargetGoal(this)).setCallsForHelp());
-        this.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, AbstractSkeletonEntity.class, false));
+        this.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, ChickenEntity.class, false));
     }
 
     @Override
