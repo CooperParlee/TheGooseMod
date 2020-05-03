@@ -7,6 +7,6 @@
   "item.thegoosemod.goose_feather": "Goose Feather",
   "item.thegoosemod.goose_cooked": "Cooked Goose",
 
-  "entities.thegoosemod.goose": "Goose",
-  "entities.thegoosemod.goose_tamed": "Goose"
+  "entity.thegoosemod.goose": "Goose",
+  "entity.thegoosemod.goose_tamed": "Goose"
 }

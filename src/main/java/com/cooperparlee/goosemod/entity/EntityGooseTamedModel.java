@@ -16,6 +16,8 @@ public class EntityGooseTamedModel<T extends EntityGooseTame> extends AgeableMod
     private final ModelRenderer leftLeg;
     private final ModelRenderer rightLeg;
 
+    private boolean wasSitting = false;
+
     public EntityGooseTamedModel() {
         textureWidth = 64;
         textureHeight = 64;
@@ -77,6 +79,11 @@ public class EntityGooseTamedModel<T extends EntityGooseTame> extends AgeableMod
         this.rightWing.rotateAngleZ = ageInTicks;
         this.leftWing.rotateAngleZ = -ageInTicks;
     }
+
+    public void setSit(T entityIn, boolean sitting){
+
+    }
+
 
     protected Iterable<ModelRenderer> getBodyParts() {
         return ImmutableList.of(this.body, this.rightLeg, this.leftLeg, this.rightWing, this.leftWing);
