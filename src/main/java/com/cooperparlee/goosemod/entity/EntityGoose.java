@@ -6,12 +6,11 @@ import com.cooperparlee.goosemod.util.ModSounds;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
+import net.minecraft.entity.monster.SilverfishEntity;
 import net.minecraft.entity.monster.SkeletonEntity;
 import net.minecraft.entity.monster.SpiderEntity;
-import net.minecraft.entity.passive.AnimalEntity;
-import net.minecraft.entity.passive.ChickenEntity;
-import net.minecraft.entity.passive.CowEntity;
-import net.minecraft.entity.passive.RabbitEntity;
+import net.minecraft.entity.passive.*;
+import net.minecraft.entity.passive.fish.SalmonEntity;
 import net.minecraft.entity.passive.horse.HorseEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -58,6 +57,11 @@ public class EntityGoose extends AnimalEntity {
         this.goalSelector.addGoal(6, new WaterAvoidingRandomWalkingGoal(this, 1.0D));
         this.goalSelector.addGoal(7, new LookAtGoal(this, PlayerEntity.class, 6.0F));
         this.goalSelector.addGoal(8, new LookRandomlyGoal(this));
+
+        this.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, SpiderEntity.class, false));
+        this.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, BeeEntity.class, false));
+        this.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, SilverfishEntity.class, false));
+        this.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, SalmonEntity.class, false));
     }
 
     @Override
@@ -136,19 +140,19 @@ public class EntityGoose extends AnimalEntity {
         ItemStack itemstack = player.getHeldItem(hand);
         Item item = itemstack.getItem();
 
-        if (item == Items.APPLE) {
+        if (item == Items.APPLE && !net.minecraftforge.event.ForgeEventFactory.onAnimalTame(this, player)) {
             if (!player.abilities.isCreativeMode) {
                 itemstack.shrink(1);
             }
 
-            if (this.rand.nextInt(3) == 0 && !net.minecraftforge.event.ForgeEventFactory.onAnimalTame(this, player)) {
+            if (this.rand.nextInt(3) == 0) {
                 EntityGooseTame entityGoose = ModEntities.GOOSE_TAMED.get().create(this.world);
                 entityGoose.setGrowingAge(this.getGrowingAge());
                 entityGoose.setOwnerId(player.getUniqueID());
                 entityGoose.setLocationAndAngles(this.getPosX(), this.getPosY(), this.getPosZ(), this.rotationYaw, 0.0F);
                 this.world.setEntityState(entityGoose, (byte)2); //Sets it to sit state
                 this.world.addEntity(entityGoose);
-                return entityGoose.Tame(this);
+                return entityGoose.ScheduledDeletionInvokation(this, this.world);
             }
 
             return true;
